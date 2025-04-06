@@ -1,4 +1,5 @@
-// 启发式函数
+// The heuristic function:
+// choice 1: hamming
 double heuristic(const Point& a, const Point& b) {
     return abs(a.x - b.x) + abs(a.y - b.y);
 }
