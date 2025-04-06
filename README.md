@@ -1,2 +1,2 @@
 # A-algorithm
-An effective A_star algorithm for navigation
+An effective A_star algorithm implementation for navigation
