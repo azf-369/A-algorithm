@@ -1,3 +1,6 @@
+#ifndef A_STAR_H
+#define A_STAR_H
+
 // 定义一个结构体用于存储节点信息
 struct Path_Node {
     Point position;  // 当前节点的位置
@@ -30,3 +33,5 @@ struct pair_hash {
         return v.x * 31 + v.y;
     }
 };
+
+#endif
