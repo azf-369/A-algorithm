@@ -1,5 +1,4 @@
-// The heuristic function:
-// choice 1: hamming
+// 启发式函数，使用hamming距离
 double heuristic(const Point& a, const Point& b) {
     return abs(a.x - b.x) + abs(a.y - b.y);
 }
@@ -13,6 +12,25 @@ double heuristic(const Point& a, const Point& b) {
 // double g_cost(const Point& a, const Point& b){
 //     return sqrt(pow(a.x-b.x,2)+pow(a.y-b.y,2));
 // }
+
+bool expansion_pos_check(const Point& pos) {
+    vector<Point> expansion_pos = {
+        {3, 3}, {3, 2}, {3, 1}, {3, 0}, {3, -1}, {3, -2}, {3, -3},
+        {2, 3}, {2, 2}, {2, 1}, {2, 0}, {2, -1}, {2, -2}, {2, -3},
+        {1, -3}, {1, -2}, {1, -1}, {1, 0}, {1, 1}, {1, 2}, {1, 3},
+        {0, -3}, {0, -2}, {0, -1}, {0, 0}, {0, 1}, {0, 2}, {0, 3},
+        {-1, -3}, {-1, -2}, {-1, -1}, {-1, 0}, {-1, 1}, {-1, 2}, {-1, 3},
+        {-2, -3}, {-2, -2}, {-2, -1}, {-2, 0}, {-2, 1}, {-2, 2}, {-2, 3},
+        {-3, -3}, {-3, -2}, {-3, -1}, {-3, 0}, {-3, 1}, {-3, 2}, {-3, 3}
+    };
+    for (const auto& p : expansion_pos) {
+        Point new_pos = pos + p;
+        if(Maptest.at<uchar>(new_pos.x, new_pos.y) == 0){
+            return false;
+        }
+    }
+    return true;
+}
 
 // A* 算法实现
 int Astar(const Point& start, const Point& target, vector<Point>& PathList) {
@@ -48,8 +66,6 @@ int Astar(const Point& start, const Point& target, vector<Point>& PathList) {
             while (current) {
                 PathList.push_back(current->position);
                 current = current->parent;
-                // delete current; // 释放当前节点
-                // current = parent;
                 cost++;
             }
             reverse(PathList.begin(), PathList.end());
@@ -71,7 +87,8 @@ int Astar(const Point& start, const Point& target, vector<Point>& PathList) {
             // 检查邻居节点是否在地图范围内且不是障碍物
             if (neighbor_pos.x >= 0 && neighbor_pos.x < MapParam.width &&
                 neighbor_pos.y >= 0 && neighbor_pos.y < MapParam.height &&
-                Maptest.at<uchar>(neighbor_pos.x, neighbor_pos.y) == 255) {
+                // Maptest.at<uchar>(neighbor_pos.x, neighbor_pos.y) == 255) {
+                expansion_pos_check(neighbor_pos)) {
                 // 检查是否已经在关闭列表中
                 if (closed_list.find(neighbor_pos) != closed_list.end()) {
                     continue;
