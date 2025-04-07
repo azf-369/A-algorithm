@@ -1,8 +1,9 @@
-// 启发式函数，使用hamming距离
+// 启发式函数，使用hamming距离：
 double heuristic(const Point& a, const Point& b) {
     return abs(a.x - b.x) + abs(a.y - b.y);
 }
 
+// 使用膨胀算法：
 bool expansion_pos_check(const Point& pos) {
     vector<Point> expansion_pos = {
         {3, 3}, {3, 2}, {3, 1}, {3, 0}, {3, -1}, {3, -2}, {3, -3},
