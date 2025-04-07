@@ -2,16 +2,6 @@
 double heuristic(const Point& a, const Point& b) {
     return abs(a.x - b.x) + abs(a.y - b.y);
 }
-// double heuristic(const Point& a, const Point& b) {
-//     return sqrt(pow(a.x - b.x, 2) + pow(a.y - b.y, 2));
-// }
-// int heuristic(const Point& a, const Point& b) {
-//     return max(abs(a.x - b.x), abs(a.y - b.y));
-// }
-
-// double g_cost(const Point& a, const Point& b){
-//     return sqrt(pow(a.x-b.x,2)+pow(a.y-b.y,2));
-// }
 
 bool expansion_pos_check(const Point& pos) {
     vector<Point> expansion_pos = {
@@ -87,7 +77,6 @@ int Astar(const Point& start, const Point& target, vector<Point>& PathList) {
             // 检查邻居节点是否在地图范围内且不是障碍物
             if (neighbor_pos.x >= 0 && neighbor_pos.x < MapParam.width &&
                 neighbor_pos.y >= 0 && neighbor_pos.y < MapParam.height &&
-                // Maptest.at<uchar>(neighbor_pos.x, neighbor_pos.y) == 255) {
                 expansion_pos_check(neighbor_pos)) {
                 // 检查是否已经在关闭列表中
                 if (closed_list.find(neighbor_pos) != closed_list.end()) {
